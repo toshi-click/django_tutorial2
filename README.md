@@ -16,6 +16,14 @@ docker-compose run web_django python3 manage.py migrate
 ```bash
 docker exec -it web_django python3 manage.py startapp restapi
 ```
+rest_frameworkとrestapiというアプリを使うことをDjangoに知らせるためにsettings.pyのINSTALLED_APPSに追記します。
+```
+INSTALLED_APPS = (
+    ...
+    'rest_framework',
+    'restapi.apps.RestapiConfig',
+)
+```
 
 ### モデルを作ったあとに
 ```
