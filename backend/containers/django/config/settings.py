@@ -9,12 +9,15 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+env = environ.Env()
+env.read_env('.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -77,8 +80,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env.get_value('DATABASE_ENGINE', default='django.db.backends.sqlite3'),
+        'NAME': env.get_value('DATABASE_DB', default=os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': env.get_value('DATABASE_USER', default='django_user'),
+        'PASSWORD': env.get_value('DATABASE_PASSWORD', default='password'),
+        'HOST': env.get_value('DATABASE_HOST', default='localhost'),
+        'PORT': env.get_value('DATABASE_PORT', default='5432'),
     }
 }
 
