@@ -1,5 +1,5 @@
 # django_tutorial2
-
+https://qiita.com/Gattaca/items/77cf379bcc99f1b8b324
 
 ## djangoの生成
 ```bash
